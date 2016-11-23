@@ -17,7 +17,7 @@ exports.searchEvents = location => new Promise ( (resolve, reject) => {
 	})
 })
 
-exports.searchEvents = performer => new Promise ( (resolve, reject) => {
+exports.searchPerformer = performer => new Promise ( (resolve, reject) => {
 	const url = 'http://api.eventful.com/json/performers/search?'
 	const query_string = {app_key: 'Xf6JnTWqzJb6ZRhD', keywords: performer}
 

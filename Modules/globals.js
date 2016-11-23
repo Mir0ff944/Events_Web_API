@@ -3,7 +3,8 @@
 /* the HTTP response codes used by the API */
 exports.status = {
 	ok: 200,										// the request has succeeded
-	created: 201,								// a new resource has been created
+	created: 201,	
+	noContent: 204,							// a new resource has been created
 	badRequest: 400,						// request not understood due to malformed syntax
 	unauthorized: 401,					// request requires valid authentication
 	notFound: 404,							// no resource found matching the url

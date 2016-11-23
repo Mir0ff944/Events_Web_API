@@ -1,7 +1,65 @@
 'use strict'
 
-const readline = require('readine-sync')
+const restify = require('restify')
 const server = restify.createServer()
 
-//const books = require('./ targetname here')
+server.use(restify.fullResponse())
+server.use(restify.badParser())
+server.use(restify.queryParser())
+server.use(restify.authorizationParser())
 
+const events = require('./events.js')
+const globals = require('./Modules/globals')
+
+const defaultPort = 8080
+
+server.get('/', (req, res, next) => {
+	res.redirect('/events', next)
+})
+
+/**
+ * @api {get} /favorites Requests a list of favorite artists
+ * @apiGroup Favorites
+ * @apiParam {String} location location String
+ * @apiPAram {String} performer Performer String
+ */
+
+server.get('/events', (req, res) => {
+	events.searchLocation(req, (err, data) => {
+		res.setHeader('content-type', 'application/json')
+		res.setHeader('accepts', 'GET')
+		if (err) {
+			res.send(global.badRequest, {error: err.message})
+		} else {
+			res.send(globals.ok, data)
+		}
+		res.end()
+	})
+})
+
+server.get('/performer/events', (req, res) => {
+	events.searchPerformerEvent(req, (err, data) => {
+		res.setHeader('content-type', 'application/json')
+		res.setHeader('accepts', 'GET')
+		if (err) {
+			res.sed(globals.badRequest, {error: err.message})
+		} else {
+			res.send(globals.created, {events: data})
+		}
+		res.end()
+	})
+})
+
+server.get('/favorites', (req, res) => {
+	events.showFavorites(req, (err, data) => {
+		res.setHeader('content-type', 'application/json')
+		res.setHeader('accepts', 'GET, POST, PUT, DELETE')
+		if (err) {
+			res.send(globals.badRequest, {error: err.message})
+		} else {
+			res.send(global.ok, data)
+		}
+		res.end()
+
+    	})
+})
