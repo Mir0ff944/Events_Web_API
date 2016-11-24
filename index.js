@@ -4,7 +4,7 @@ const restify = require('restify')
 const server = restify.createServer()
 
 server.use(restify.fullResponse())
-server.use(restify.badParser())
+server.use(restify.bodyParser())
 server.use(restify.queryParser())
 server.use(restify.authorizationParser())
 
@@ -37,12 +37,25 @@ server.get('/events', (req, res) => {
 	})
 })
 
-server.get('/performer/events', (req, res) => {
-	events.searchPerformerEvent(req, (err, data) => {
+server.get('/performer', (req, res) => {
+	events.searchPerformer(req, (err, data) => {
 		res.setHeader('content-type', 'application/json')
 		res.setHeader('accepts', 'GET')
 		if (err) {
-			res.sed(globals.badRequest, {error: err.message})
+			res.send(global.badRequest, {error: err.message})
+		} else {
+			res.send(globals.ok, data)
+			res.end()
+		}
+	})
+})
+
+server.get('/performer/events', (req, res) => {
+	events.searchPerformerEvents(req, (err, data) => {
+		res.setHeader('content-type', 'application/json')
+		res.setHeader('accepts', 'GET')
+		if (err) {
+			res.send(globals.badRequest, {error: err.message})
 		} else {
 			res.send(globals.created, {events: data})
 		}
@@ -62,4 +75,14 @@ server.get('/favorites', (req, res) => {
 		res.end()
 
     	})
+})
+
+const port = process.env.PORT || defaultPort
+
+server.listen(port, err => {
+	if(err) {
+		console.log(err)
+	} else {
+		console.log('App is ready at : ' + port)
+	}
 })
