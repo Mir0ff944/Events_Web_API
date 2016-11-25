@@ -26,7 +26,7 @@ exports.searchPerformer = performer => new Promise ( (resolve, reject) => {
 		if (err) reject(Error(globals.badRequest))
 		const json = JSON.parse(body)
 
-		if (json.total_items === 0){
+		if (json.page_count === 0){
 			reject(Error(globals.notFound))
 		}
 		const data = {
@@ -47,8 +47,9 @@ exports.searchPerformerEvents = id => new Promise((resolve,reject) => {
 		if (err) reject(Error(globals.badRequest))
 		const data = JSON.parse(body)
 
-		if (data.erro === 1) {
+		if (data.total_items === 0) {
 			reject(Error(globals.notFound))
+			data =globals.notFound + 'No Events Found'
 		}
 		resolve(data)
 	})

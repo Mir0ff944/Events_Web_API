@@ -29,11 +29,6 @@ exports.searchPerformer = (request, callback) => {
 		.then(data => callback(null, data))
 		.catch(err => callback(err))
 }
-// const extractDataId = (request, data) => new Promise((resolve, reject) => {
-// 	if (request.data === undefined || request.data.id === undefined)
-// 		reject(new Error('Missing data ${data[id]'))
-// 	resolve(request.data.id)
-// } )
 
 const extractParam = (request, param) => new Promise( (resolve, reject) => {
 	if (request.params === undefined || request.params[param] === undefined)
@@ -41,11 +36,11 @@ const extractParam = (request, param) => new Promise( (resolve, reject) => {
 	resolve(request.params[param])
 })
 
-const extractBodyKey = (request, key) => new Promise((resolve, reject) => {
-	if (request.body === undefined || request.body[key] === undefined)
-		reject(new Error(`missing key ${key} in request body`))
-	resolve(request.body[key])
-})
+// const extractBodyKey = (request, key) => new Promise((resolve, reject) => {
+// 	if (request.body === undefined || request.body[key] === undefined)
+// 		reject(new Error(`missing key ${key} in request body`))
+// 	resolve(request.body[key])
+// })
 
 exports.cleanArray = (request, data) => new Promise((resolve) => {
 	const host = request.host ||'http://localhost'
