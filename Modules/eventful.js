@@ -32,6 +32,7 @@ exports.searchPerformer = performer => new Promise ( (resolve, reject) => {
 		const data = {
 			title: json.performers.performer.name,
 			music_genre: json.performers.performer.short_bio,
+			image: json.performers.performer.image.medium.url,
 			id: json.performers.performer.id
 		}
 

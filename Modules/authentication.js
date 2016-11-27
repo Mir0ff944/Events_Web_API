@@ -8,13 +8,18 @@ exports.getHeader = request => new Promise ((resolve, reject) => {
 		reject(new Error(globals.unauthorizrd))
 	}
 	const auth = request.authorization.basic
+
 	if (auth.username === undefined || auth.password === undefined) {
 		reject({username: auth.username, password: auth.password})
 	}
 })
 
 exports.hashPassword = credentials => new Promise ( (resolve, reject) => {
+	if(credentials.password === undefined){
+		reject(new Error('type in password'))
+	}
 	const salt = bcrypt.genSaltSync(10)
+
 	credentials.password = bcrypt.hasSync(credentials.password, salt)
 	resolve(credentials)
 })

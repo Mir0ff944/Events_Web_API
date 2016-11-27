@@ -2,8 +2,7 @@
 
 const eventful = require('./Modules/eventful')
 
-
-exports.searchLocation = (request, callback) => {
+exports.searchByLocation = (request, callback) => {
 	    extractParam(request, 'location')
             .then( location => eventful.searchEvents(location))
             //.then( data => this.cleanArray(request, data))
@@ -14,10 +13,7 @@ exports.searchLocation = (request, callback) => {
 exports.searchPerformerEvents = (request, callback) => {
 	extractParam(request, 'performer')
 			.then(performer => eventful.searchPerformer(performer))
-			.then(function(data) {
-				//this.name = data.name
-				return data
-			}).then(id => eventful.searchPerformerEvents(id.id))
+			.then(id => eventful.searchPerformerEvents(id.id))
 			.then(events => events.event)
 			.then(data => callback(null, data))
 			.catch(err => callback(err))
@@ -53,13 +49,3 @@ exports.cleanArray = (request, data) => new Promise((resolve) => {
 
 	resolve({events: clean})
 })
-
-// exports.removeMongoFields = (request, data) => new Promise((resolve, reject) => {
-// 	const host = request.host || 'http://localhost'
-// 	const clean = data.map(element => ({
-// 		title: element.title,
-// 		// --------> link: `${host}//${element.eventID}`
-// 	})
-//     )
-// 	resolve({events: clean})
-//})

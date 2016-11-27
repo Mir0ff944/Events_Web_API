@@ -25,7 +25,7 @@ server.get('/', (req, res, next) => {
  */
 
 server.get('/events', (req, res) => {
-	events.searchLocation(req, (err, data) => {
+	events.searchByLocation(req, (err, data) => {
 		res.setHeader('content-type', 'application/json')
 		res.setHeader('accepts', 'GET')
 		if (err) {
@@ -83,6 +83,6 @@ server.listen(port, err => {
 	if(err) {
 		console.log(err)
 	} else {
-		console.log('App is ready at : ' + port)
+		console.log('App is ready at : http://localhost:' + port)
 	}
 })
