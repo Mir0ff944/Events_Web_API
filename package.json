@@ -31,6 +31,9 @@
   "homepage": "https://github.com/covcom/todo#readme",
   "dependencies": {
     "csprng": "^0.1.1",
+    "js-schema": "^1.0.1",
+    "mongodb": "^2.2.12",
+    "mongoose": "^4.7.0",
     "node-persist": "^2.0.7",
     "request": "^2.79.0",
     "restify": "^4.1.1",

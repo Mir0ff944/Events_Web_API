@@ -29,14 +29,26 @@ exports.searchPerformer = performer => new Promise ( (resolve, reject) => {
 		if (json.page_count === 0){
 			reject(Error(globals.notFound))
 		}
-		const data = {
-			title: json.performers.performer.name,
-			music_genre: json.performers.performer.short_bio,
-			image: json.performers.performer.image.medium.url,
-			id: json.performers.performer.id
-		}
 
-		resolve(data)
+		if (json.total_items > 1) {
+			const data = {
+				title: json.performers.performer[0].name,
+				music_genre: json.performers.performer[0].short_bio,
+				image: json.performers.performer[0].image.medium.url,
+				id: json.performers.performer[0].id,
+			}
+
+			resolve(data)
+		} else {
+			const data = {
+				title: json.performers.performer.name,
+				music_genre: json.performers.performer.short_bio,
+				image: json.performers.performer.image.medium.url,
+				id: json.performers.performer.id,
+			}
+
+			resolve(data)
+		}
 	})
 })
 

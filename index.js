@@ -77,6 +77,18 @@ server.get('/favorites', (req, res) => {
     	})
 })
 
+server.post('/favorites', (req, res) => {
+	events.addFavorite(req, (err, data) => {
+		res.setHeader('content-type', 'application/json')
+		res.setHeader('accepts', 'GET, POST, PUT, DELETE')
+		if (err) {
+			res.send(globals.badRequest, {error: err.message})
+		} else {
+			res.send(global.ok, data)
+		}
+	})
+})
+
 const port = process.env.PORT || defaultPort
 
 server.listen(port, err => {

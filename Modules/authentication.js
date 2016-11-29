@@ -3,6 +3,8 @@
 const bcrypt = require('bcrypt')
 const globals = require('./globals')
 
+const passLen = 10
+
 exports.getHeader = request => new Promise ((resolve, reject) => {
 	if (request.authorization === undefined || request.authorization.basic === undefined) {
 		reject(new Error(globals.unauthorizrd))
@@ -18,7 +20,7 @@ exports.hashPassword = credentials => new Promise ( (resolve, reject) => {
 	if(credentials.password === undefined){
 		reject(new Error('type in password'))
 	}
-	const salt = bcrypt.genSaltSync(10)
+	const salt = bcrypt.genSaltSync(passLen)
 
 	credentials.password = bcrypt.hasSync(credentials.password, salt)
 	resolve(credentials)
@@ -30,7 +32,3 @@ exports.checkPassword = (provided, stored) => new Promise ((resolve, reject) => 
 	}
 	resolve()
 })
-
-// exports.performerID = identification => new Promise ((resolve, reject) => {
-
-//})

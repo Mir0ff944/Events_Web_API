@@ -1,24 +1,20 @@
 'use strict'
 
-const storage = require('node-persist')
-
-storage.initSync()
-
-const Favorite = function(title, genre, id) {
-	this.title = title,
-    this.music_genre = genre,
-    this.id = id
-}
+const schema = require('./schema')
 
 exports.addFavorite = PerformerDetails => new Promise ((resolve, reject) => {
 	if (!'title' in PerformerDetails && !'music_genre in PerformerDetails' && !'id' in PerformerDetails) {
 		reject(new Error('ivalid performer object'))
 	}
-	const favorite = new Favorite(PerformerDetails)
+	const favorite = new schema.favorite(PerformerDetails)
 
-	storage.setItemSync(favorite)
+	favorite.save( (err, favorite) => {
+		if (err) {
+			reject(new Error('an error adding favorite'))
+		}
+		resolve(favorite)
+	})
+
 	resolve(favorite)
 
 })
-
-
