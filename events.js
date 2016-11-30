@@ -2,6 +2,7 @@
 
 const eventful = require('./Modules/eventful')
 const filepersist = require('./Modules/filepersist')
+//const schema = require('./Modules/schema')
 
 exports.searchByLocation = (request, callback) => {
 	    extractParam(request, 'l')
@@ -31,6 +32,14 @@ exports.addFavorite = (request, callback) => {
 	extractBodyKey(request, 'name')
 		.then(name => eventful.searchPerformer(name))
 		.then(favorite => filepersist.addFavorite(favorite))
+		.then(data => callback(null, data))
+		.catch(err => callback(err))
+}
+
+exports.showFavorites = (request, callback) => {
+	filepersist.getFavorites()
+		.then(console.log('showing favorites'))
+		.then(data => callback(null, data))
 		.catch(err => callback(err))
 }
 

@@ -25,4 +25,4 @@ const favoriteSchema = new Schema({
 	id: String
 })
 
-exports.favorite = mongoose.model('Favorite', favoriteSchema)
+exports.favorites = mongoose.model('Favorites', favoriteSchema)
