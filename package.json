@@ -1,5 +1,5 @@
 {
-  "name": "Lyx-api",
+  "name": "lyx-api",
   "version": "1.0.0",
   "description": "Simple API to manipulate to do lists",
   "main": "index.js",
@@ -16,21 +16,23 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/Mir0ff944/APIdevelopment.git"
+    "url": "https://gitlab.com/Mir0ff944/WebAPIAssignment.gitt"
   },
   "keywords": [
     "api",
     "",
     "deployment"
   ],
-  "author": "Miroslav IVanov",
+  "author": "Miroslav Ivanov",
   "license": "ISC",
   "bugs": {
-    "url": "https://gitlab.com/Mir0ff944/APIdevelopment/issues"
+    "url": "https://gitlab.com/Mir0ff944/WebAPIAssignment/issues"
   },
-  "homepage": "https://github.com/covcom/todo#readme",
+  "homepage": "https://lyx-api.herokuapp.com/",
   "dependencies": {
     "csprng": "^0.1.1",
+    "istanbul": "^0.4.5",
+    "jasmine": "^2.5.2",
     "js-schema": "^1.0.1",
     "mongodb": "^2.2.12",
     "mongoose": "^4.7.0",

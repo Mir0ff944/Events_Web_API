@@ -14,7 +14,7 @@ const globals = require('./Modules/globals')
 const defaultPort = 8080
 
 server.get('/', (req, res, next) => {
-	res.redirect('/events', next)
+	res.redirect('/favorites', next)
 })
 
 /**
@@ -26,7 +26,7 @@ server.get('/', (req, res, next) => {
 
 server.get('/events', (req, res) => {
 	events.searchByLocation(req, (err, data) => {
-		res.setHeader('content-type', 'application/json')
+		res.setHeader('content-type', globals.format.json)
 		res.setHeader('accepts', 'GET')
 		if (err) {
 			res.send(global.badRequest, {error: err.message})
@@ -39,7 +39,7 @@ server.get('/events', (req, res) => {
 
 server.get('/performer', (req, res) => {
 	events.searchPerformer(req, (err, data) => {
-		res.setHeader('content-type', 'application/json')
+		res.setHeader('content-type', globals.format.json)
 		res.setHeader('accepts', 'GET')
 		if (err) {
 			res.send(global.badRequest, {error: err.message})
@@ -52,7 +52,7 @@ server.get('/performer', (req, res) => {
 
 server.get('/performer/events', (req, res) => {
 	events.searchPerformerEvents(req, (err, data) => {
-		res.setHeader('content-type', 'application/json')
+		res.setHeader('content-type', globals.format.json)
 		res.setHeader('accepts', 'GET')
 		if (err) {
 			res.send(globals.badRequest, {error: err.message})
@@ -65,7 +65,7 @@ server.get('/performer/events', (req, res) => {
 
 server.get('/favorites', (req, res) => {
 	events.showFavorites(req, (err, data) => {
-		res.setHeader('content-type', 'application/json')
+		res.setHeader('content-type', globals.format.json)
 		res.setHeader('accepts', 'GET, POST, PUT, DELETE')
 		if (err) {
 			res.send(globals.badRequest, {error: err.message})
@@ -79,10 +79,22 @@ server.get('/favorites', (req, res) => {
 
 server.post('/favorites', (req, res) => {
 	events.addFavorite(req, (err, data) => {
-		res.setHeader('content-type', 'application/json')
+		res.setHeader('content-type', globals.format.json)
 		res.setHeader('accepts', 'GET, POST, PUT, DELETE')
 		if (err) {
 			res.send(globals.badRequest, {error: err.message})
+		} else {
+			res.send(global.ok, data)
+		}
+	})
+})
+
+server.del('/favorites', (req, res) => {
+	events.delFavorites(req, (err, data) => {
+		res.setHeader('content-type', globals.format.json)
+		res.setHeader('accepts', 'GET, POST, PUT, DELETE')
+		if (err) {
+			res.send(global.badRequest, {error: err.message})
 		} else {
 			res.send(global.ok, data)
 		}
