@@ -78,7 +78,7 @@ server.get('/favorites', (req, res) => {
 })
 
 server.post('/favorites', (req, res) => {
-	events.addFavorite(req, (err, data) => {
+	events.addFavorites(req, (err, data) => {
 		res.setHeader('content-type', globals.format.json)
 		res.setHeader('accepts', 'GET, POST, PUT, DELETE')
 		if (err) {
