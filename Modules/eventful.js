@@ -33,23 +33,27 @@ exports.searchPerformer = performer => new Promise ( (resolve, reject) => {
 			reject(Error('Performer not found'))
 		} else {
 			if (json.total_items > 1) {
-				const data = {
-					title: json.performers.performer[0].name,
-					music_genre: json.performers.performer[0].short_bio,
-					image: json.performers.performer[0].image.medium.url,
-					id: json.performers.performer[0].id,
-				}
+				const performers = [
+					performer = {
+						title: json.performers.performer[0].name,
+						music_genre: json.performers.performer[0].short_bio,
+						image: json.performers.performer[0].image.medium.url,
+						id: json.performers.performer[0].id,
+					}
+				]
 
-				resolve(data)
+				resolve({performers})
 			} else {
-				const data = {
-					title: json.performers.performer.name,
-					music_genre: json.performers.performer.short_bio,
-					image: json.performers.performer.image.medium.url,
-					id: json.performers.performer.id,
-				}
+				const performers = [
+					performer = {
+						title: json.performers.performer.name,
+						music_genre: json.performers.performer.short_bio,
+						image: json.performers.performer.image.medium.url,
+						id: json.performers.performer.id,
+					}
+				]
 
-				resolve(data)
+				resolve({performers})
 			}
 		}
 	})
