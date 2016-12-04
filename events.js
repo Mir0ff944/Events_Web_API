@@ -14,7 +14,11 @@ exports.searchByLocation = (request, callback) => {
 exports.searchPerformerEvents = (request, callback) => {
 	extractParam(request, 'p')
 			.then(performer => eventful.searchPerformer(performer))
-			.then(id => eventful.searchPerformerEvents(id.id))
+			.then(data => {
+				data = data.performers[0].id
+				console.log(data)
+				return data
+			}).then(id => eventful.searchPerformerEvents(id))
 			.then(events => events.event)
 			.then(data => callback(null, data))
 			.catch(err => callback(err))
