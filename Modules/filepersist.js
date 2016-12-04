@@ -3,7 +3,7 @@
 const schema = require('./schema')
 
 exports.addFavorite = PerformerDetails => new Promise ((resolve, reject) => {
-	if (!'title' in PerformerDetails && !'music_genre in PerformerDetails' && !'id' in PerformerDetails) {
+	if (!'perforers[0].title' in PerformerDetails && !'performers[0].music_genre' in PerformerDetails && !'performers[0].id' in PerformerDetails) {
 		reject(new Error('ivalid performer object'))
 	}
 	const favorites = new schema.Favorites(PerformerDetails)

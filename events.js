@@ -16,7 +16,7 @@ exports.searchPerformerEvents = (request, callback) => {
 			.then(performer => eventful.searchPerformer(performer))
 			.then(data => {
 				data = data.performers[0].id
-				console.log(data)
+				//console.log(data)
 				return data
 			}).then(id => eventful.searchPerformerEvents(id))
 			.then(events => events.event)
@@ -26,7 +26,7 @@ exports.searchPerformerEvents = (request, callback) => {
 
 exports.searchPerformer = (request, callback) => {
 	extractParam(request, 'p')
-		.then(performer => eventful.searchPerformer(performer))
+		.then(performers => eventful.searchPerformer(performers))
 		.then(data => callback(null, data))
 		.catch(err => callback(err))
 }
@@ -34,6 +34,11 @@ exports.searchPerformer = (request, callback) => {
 exports.addFavorites = (request, callback) => {
 	extractBodyKey(request, 'name')
 		.then(name => eventful.searchPerformer(name))
+		.then(data => {
+			data = data.performers[0]
+			//console.log(data)
+			return data
+		})
 		.then(favorite => filepersist.addFavorite(favorite))
 		.then(data => callback(null, data))
 		.catch(err => callback(err))
