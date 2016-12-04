@@ -59,16 +59,16 @@ exports.delFavorites = (request, callback) => {
 }
 
 const extractParam = (request, param) => new Promise( (resolve, reject) => {
-	// console.log(request) //debuging spec tests
-	// console.log(param)
+	console.log(request) //debuging spec tests
+	console.log(param)
 	if (request.params === undefined || request.params[param] === undefined)
 		reject(new Error(`${param} parameter missing('performer' if searching for performer events!)`))
 	resolve(request.params[param])
 })
 
 const extractBodyKey = (request, key) => new Promise((resolve, reject) => {
-	// console.log(request)	#debuging spec tests
-	// console.log(key)
+	console.log(request)	//debuging spec tests
+	console.log(key)
 	if (request.body === undefined || request.body[key] === undefined)
 		reject(new Error(`missing key ${key} in request body`))
 	resolve(request.body[key])
