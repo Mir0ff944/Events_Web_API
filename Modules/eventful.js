@@ -1,13 +1,27 @@
 'use strict'
 
+/**
+ * importing modules and declarng global variables
+ */
 const request = require('request')
 const globals = require('./globals')
 const key = 'Xf6JnTWqzJb6ZRhD'
 
+/**
+ * @Promise Exports event search based on location
+ * @param {string} location - Name of a city
+ * @returns {Promise} collection of events if resolved.
+ */
 exports.searchEvents = location => new Promise ( (resolve, reject) => {
 	const url = 'http://api.eventful.com/json/events/search?'
 	const query_string = {app_key: key, q: 'music', location: location, data: 'future'}
 
+/**
+ * @request making http request
+ * @param {string} url - url link to 3rd parti API without any parameters
+ * @param {string} qs - query string containing the parameters for he url
+ * @resolve {object} collection of events
+ */
 	request.get({url: url, qs: query_string}, (err, res, body) => {
 		if (err) reject(Error(globals.badRequest))
 		const data = JSON.parse(body)
@@ -20,10 +34,22 @@ exports.searchEvents = location => new Promise ( (resolve, reject) => {
 	})
 })
 
+/**
+ * @Promise Exports performer search based on performers name
+ * @param {string} performer - performer name
+ * @returns {object} performer details if resolved
+ */
 exports.searchPerformer = performer => new Promise ( (resolve, reject) => {
 	const url = 'http://api.eventful.com/json/performers/search?'
 	const query_string = {app_key: key, keywords: performer}
 
+/**
+ * @request making http request
+ * @param {string} url - url link to 3rd party api
+ * @param {string} url - url link to 3rd parti API without any parameters
+ * @param {string} qs - query string containing the parameters for he url
+ * @returns {object} performer details
+*/
 	request.get({url: url, qs: query_string}, (err, res, body) => {
 		if (err) reject(Error('failed to make api request'))
 
@@ -59,10 +85,21 @@ exports.searchPerformer = performer => new Promise ( (resolve, reject) => {
 	})
 })
 
+/**
+ * @Promise Exports performer events based on performer id
+ * @param {string} id - performer id
+ * @returns {object} events for performer if resolved
+ */
 exports.searchPerformerEvents = id => new Promise((resolve,reject) => {
 	const url = 'http://api.eventful.com/json/performers/events/list?'
 	const query_string = {app_key: key, id: id}
 
+/**
+ * @request making http request
+ * @param {string} url - url link to 3rd parti API without any parameters
+ * @param {string} qs - query string containing the parameters for he url
+ * @returns {object} performer events
+ */
 	request.get({url: url, qs: query_string}, (err, res, body) => {
 		if (err) reject(Error(globals.badRequest))
 		const data = JSON.parse(body)

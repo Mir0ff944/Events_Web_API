@@ -20,23 +20,23 @@ exports.addFavorite = PerformerDetails => new Promise ((resolve, reject) => {
 })
 
 exports.getFavorites = () => new Promise((resolve, reject) => {
-	schema.Favorites.find((err, docs) => {
+	schema.Favorites.find((err, favorites ) => {
 		if (err) reject(new Error('database error'))
-		if (!docs.length) reject(new Error('favorites list is empty'))
-		resolve(docs)
+		if (!favorites.length) reject(new Error('favorites list is empty'))
+		resolve({favorites})
 	})
 })
 
-exports.delFavorites = () => new Promise((resolve, reject) => {
-	schema.Favorites.remove({},(err, docs) => {
+exports.delFavorites = favorites => new Promise((resolve, reject) => {
+	schema.Favorites.remove({favorites},(err, favorites) => {
 		if (err) reject(new Error('database error'))
-		if (!docs.length) resolve('Favorites list has been deleted')
+		if (!favorites.length) resolve('Favorites list has been deleted')
 	})
 })
 
 // exports.existing = listname => new Promise ((resolve, reject) => {
 // 	schema.favorites.find({name: listname}.remove(), (err) => {
 // 		if (err) reject(new Error('database error'))
-// 		//if (docs.length) reject(new Error(`${listname} is already in favorites`))
+// 		//if (favorites.length) reject(new Error(`${listname} is already in favorites`))
 // 	})
 // })

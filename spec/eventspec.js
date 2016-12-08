@@ -7,7 +7,7 @@ describe('favorites list', () => {
 	beforeEach(done => {
 		schema.Favorites.remove({}, err => {
 			if (err) expect(true).toBe(false)
-			new schema.Favorites({name: 'favorites', performers: {title: 'Ariana Grande'}}).save((err) => {
+			new schema.Favorites({performers: {name: ['Hardwell']}}).save((err) => {
 				if (err) expect(true).toBe(false)
 				schema.Favorites.count({}, (err, count) => {
 					if (err) expect(true).toBe(false)
@@ -19,37 +19,34 @@ describe('favorites list', () => {
 	})
 	describe('addFavorites', () => {
 		it('should add valid list', done => {
-			const favorite = {body: {name: 'Hardwell'}}
+			const favorite = {performers: {name: ['Hardwell']}}
+
 
 			events.addFavorites(favorite,(err) => {
 				if (err) expect(true).toBe(false)
-				done()
-			})
-		})
-	})
-	describe('addFavorites wrong parameter', () => {
-		it('should return invalid parameter', done => {
-			const favorite = {body: {query: 'Hardwell'}}
-
-			events.addFavorites(favorite,(err) => {
-				if(err) expect(true).toBe(true)
+				schema.Favorites.count({}, (err, count) => {
+					if (err) expect(true).toBe(false)
+					expect(count).toBe(1)
+				})
 				done()
 			})
 		})
 	})
 	describe('delFavorites', () => {
 		it('should remove favorites list', done => {
-			events.delFavorites()
-			schema.Favorites.count({}, (err, count) => {
-				if(err) expect(true).toBe(false)
-				expect(count).toBe(0)
-				done()
+			events.delFavorites({}, (err) => {
+				if (err) expect(true).toBe(false)
+				schema.Favorites.count({}, (err, count) => {
+					if(err) expect(true).toBe(false)
+					expect(count).toBe(0)
+					done()
+				})
 			})
 		})
 	})
 	describe('searchByLocation', () => {
 		it('should get valid location events', done => {
-			const location = {params: { l: 'London'}}
+			const location = {params: { l: ['London']}}
 
 			events.searchByLocation(location, (err, data) => {
 				if(err) expect(true).toBe(false)
@@ -60,7 +57,7 @@ describe('favorites list', () => {
 	})
 	describe('searchPerformer', () => {
 		it('should find valid performer', done => {
-			const performer = {params: { p: 'Eminem'}}
+			const performer = {params: { p: ['Hardwell']}}
 
 			events.searchPerformer(performer, (err,data) => {
 				if(err) expect(true).toBe(false)
@@ -71,7 +68,7 @@ describe('favorites list', () => {
 	})
 	describe('searchPerformerEvents', () => {
 		it('should find valid performer events', done => {
-			const performer = {params: { p: 'Ariana Grande'}}
+			const performer = {params: { p: ['Hardwell']}}
 
 			events.searchPerformerEvents(performer, (err, data) => {
 				if(err) expect(true).toBe(false)
@@ -82,14 +79,23 @@ describe('favorites list', () => {
 	})
 	describe('showFavorites', () => {
 		it('should return favorites list', done => {
-			const favorite = [{name: 'Hardwell'}]
+			const favorite = {body: {name: ['Hardwell']}}
 
-			events.addFavorites(favorite)
-			events.showFavorites()
-			schema.Favorites.count({}, (err) => {
-				if(err) expect(true).toBe(false)
-				//expect(count).toBe(1)
-				done()
+			events.addFavorites(favorite,(err) => {
+				if (err) expect(true).toBe(false)
+				schema.Favorites.count({}, (err, count) => {
+					if (err) expect(true).toBe(false)
+					expect(count).toBe(1)
+				})
+			})
+			events.showFavorites({}, (err, data) => {
+				if (err) expect(true).toBe(false)
+				expect(data).not.toBe(undefined)
+				schema.Favorites.count({}, (err) => {
+					if(err) expect(true).toBe(false)
+					//expect(count).toBe(1)
+					done()
+				})
 			})
 		})
 	})
