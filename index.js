@@ -13,17 +13,18 @@ const globals = require('./Modules/globals')
 
 const defaultPort = 8080
 
+/**
+ * @api {get} /events If nothing requested, redirect to favorites list
+ */
 server.get('/', (req, res, next) => {
 	res.redirect('/favorites', next)
 })
 
 /**
- * @api {get} /favorites Requests a list of favorite artists
- * @apiGroup Favorites
- * @apiParam {String} location location String
- * @apiPAram {String} performer Performer String
+ * @api {get} /events Request list of events based on location
+ * @apiGroup events
+ * @apiParam {String} l - location
  */
-
 server.get('/events', (req, res) => {
 	events.searchByLocation(req, (err, data) => {
 		res.setHeader('content-type', globals.format.json)
@@ -37,6 +38,11 @@ server.get('/events', (req, res) => {
 	})
 })
 
+/**
+ * @api {get} /events Request performer details
+ * @apiGroup events
+ * @apiParam {String} p - performer name
+ */
 server.get('/performer', (req, res) => {
 	events.searchPerformer(req, (err, data) => {
 		res.setHeader('content-type', globals.format.json)
@@ -50,6 +56,11 @@ server.get('/performer', (req, res) => {
 	})
 })
 
+/**
+ * @api {get} /events Request performer events based on performer id
+ * @apiGroup events
+ * @apiParam {String} p - performer name
+ */
 server.get('/performer/events', (req, res) => {
 	events.searchPerformerEvents(req, (err, data) => {
 		res.setHeader('content-type', globals.format.json)
@@ -63,6 +74,10 @@ server.get('/performer/events', (req, res) => {
 	})
 })
 
+/**
+ * @api {get} /events Request a list of favorite performers
+ * @apiGroup events
+ */
 server.get('/favorites', (req, res) => {
 	events.showFavorites(req, (err, data) => {
 		res.setHeader('content-type', globals.format.json)
@@ -77,6 +92,11 @@ server.get('/favorites', (req, res) => {
     	})
 })
 
+/**
+ * @api {post} /events Posts a performer into the favorites list
+ * @apiGroup events
+ * @apiParam {String} name - performer name
+ */
 server.post('/favorites', (req, res) => {
 	events.addFavorites(req, (err, data) => {
 		res.setHeader('content-type', globals.format.json)
@@ -89,6 +109,10 @@ server.post('/favorites', (req, res) => {
 	})
 })
 
+/**
+ * @api {del} /events Delete favorite list
+ * @apiGroup events
+ */
 server.del('/favorites', (req, res) => {
 	events.delFavorites(req, (err, data) => {
 		res.setHeader('content-type', globals.format.json)

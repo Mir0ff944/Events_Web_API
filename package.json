@@ -1,26 +1,23 @@
 {
   "name": "lyx-api",
   "version": "1.0.0",
-  "description": "Simple API to manipulate to do lists",
+  "description": "Events and performers api that uses data from 3rd party api, combines functions and filters data to make user interaction faster and efficient",
   "main": "index.js",
-  "directories": {
-    "test": "test"
-  },
   "scripts": {
-    "start": "node index.js",
     "test": "./node_modules/.bin/istanbul cover -x **spec/** -x **index.js** jasmine-node spec ./node_modules/.bin/jasmine-node spec --color --verbose --autotest --watch .",
     "coverage": "./node_modules/.bin/istanbul cover -x **spec/** -x **index.js** jasmine-node spec",
-    "apidoc": "node_modules/.bin/apidoc -e node_modules/",
     "linter": "node_modules/.bin/eslint ."
   },
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/Mir0ff944/WebAPIAssignment.gitt"
+    "url": "https://gitlab.com/Mir0ff944/WebAPIAssignment.git"
   },
   "keywords": [
     "api",
-    "",
-    "deployment"
+    "events",
+    "eventim",
+    "deployment",
+    "performers"
   ],
   "author": "Miroslav Ivanov",
   "license": "ISC",

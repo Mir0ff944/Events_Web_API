@@ -1,8 +1,13 @@
 'use strict'
-
+/**
+ * Main module that combines methods from eventful.js and database methods from filepersist.js
+ */
 const eventful = require('./Modules/eventful')
 const filepersist = require('./Modules/filepersist')
 
+/**
+ * 
+ */
 exports.searchByLocation = (request, callback) => {
 	    extractParam(request, 'l')
             .then( location => eventful.searchEvents(location))
