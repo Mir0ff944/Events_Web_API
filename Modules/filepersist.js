@@ -34,6 +34,13 @@ exports.delFavorites = favorites => new Promise((resolve, reject) => {
 	})
 })
 
+// exports.update = (filter, replacement) => new Promise ((resolve,reject) => {
+// 	schema.Favorites.findOneAndReplace((err, filter , replacement) => {
+// 		if (err) reject(new Error('database error'))
+// 		resolve(`${replacement} Item has been updated`)
+// 	})
+// })
+
 // exports.existing = listname => new Promise ((resolve, reject) => {
 // 	schema.favorites.find({name: listname}.remove(), (err) => {
 // 		if (err) reject(new Error('database error'))

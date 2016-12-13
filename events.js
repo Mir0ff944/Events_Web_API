@@ -4,10 +4,8 @@
  */
 const eventful = require('./Modules/eventful')
 const filepersist = require('./Modules/filepersist')
+const authorise = require ('./Modules/authorise')
 
-/**
- * 
- */
 exports.searchByLocation = (request, callback) => {
 	    extractParam(request, 'l')
             .then( location => eventful.searchEvents(location))
@@ -37,16 +35,15 @@ exports.searchPerformer = (request, callback) => {
 }
 
 exports.addFavorites = (request, callback) => {
-	extractBodyKey(request, 'name')
-		.then(name => eventful.searchPerformer(name))
-		.then(data => {
-			data = data.performers[0]
-			//console.log(data)
-			return data
-		})
-		.then(favorite => filepersist.addFavorite(favorite))
-		.then(data => callback(null, data))
-		.catch(err => callback(err))
+	authorise.getHeader(request).then(user => console.log(user))
+	.then( () => extractBodyKey(request, 'name'))
+	.then(name => eventful.searchPerformer(name))
+	  .then(data => {
+		  data = data.performers[0]
+		  return data
+	}).then(favorite => filepersist.addFavorite(favorite))
+	  .then(data => callback(null, data))
+	  .catch(err => callback(err))
 }
 
 exports.showFavorites = (request, callback) => {
@@ -79,19 +76,4 @@ const extractBodyKey = (request, key) => new Promise((resolve, reject) => {
 	resolve(request.body[key])
 })
 
-exports.cleanArray = (request, data) => new Promise((resolve) => {
-	const host = request.host ||'http://localhost'
-	const clean = data.items.map(element =>
-             ({
-	title: element.performers.performer.name,
-	link: `${host}/events/${element.id}`
-})
-	)
 
-	resolve({events: clean})
-})
-
-// exports.validataDAta = (request, data) => new Promise((resolve) => {
-// 	//needs implementing
-// 	//lab 5
-// })
