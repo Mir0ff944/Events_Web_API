@@ -35,7 +35,7 @@ exports.searchPerformer = (request, callback) => {
 }
 
 exports.addFavorites = (request, callback) => {
-	authorise.getHeader(request).then(user => console.log(user))
+	authorise.getHeader(request)
 	.then( () => extractBodyKey(request, 'name'))
 	.then(name => eventful.searchPerformer(name))
 	  .then(data => {
@@ -47,14 +47,16 @@ exports.addFavorites = (request, callback) => {
 }
 
 exports.showFavorites = (request, callback) => {
-	filepersist.getFavorites()
+	authorise.getHeader(request)
+	.then( () => filepersist.getFavorites())
 		.then(console.log('showing favorites'))
 		.then(data => callback(null, data))
 		.catch(err => callback(err))
 }
 
 exports.delFavorites = (request, callback) => {
-	filepersist.delFavorites()
+	authorise.getHeader(request)
+	.then( () => filepersist.delFavorites())
 		.then(console.log('deleting favorites'))
 		.then(data => callback(null, data))
 		.catch(err => callback(err))

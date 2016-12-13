@@ -14,7 +14,7 @@ exports.getHeader = request => new Promise ((resolve, reject) => {
 	if (auth.username === undefined || auth.password === undefined) {
 		reject({username: auth.username, password: auth.password})
 	}
-	console.log(`username: ${auth.username}, password: ${auth.password}`)
+	// console.log(`username: ${auth.username}, password: ${auth.password}`)
 	resolve()
 })
 
