@@ -1,6 +1,6 @@
 {
   "name": "lyx-api",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Events and performers api that uses data from 3rd party api, combines functions and filters data to make user interaction faster and efficient",
   "main": "index.js",
   "scripts": {
@@ -42,6 +42,7 @@
     "istanbul": "^0.4.5",
     "jasmine": "^2.5.2",
     "jasmine-node": "^1.14.5",
-    "jsdoc": "^3.4.2"
+    "jsdoc": "^3.4.2",
+    "rewire": "^2.5.2"
   }
 }
