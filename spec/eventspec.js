@@ -1,10 +1,6 @@
 'use strict'
 
-// const events = require('../events')
 const eventim = require('../Modules/eventful')
-// const schema = require('../Modules/schema')
-// const auth = require('../Modules/authorise')
-//  const persist = require('../Modules/filepersist')
 
 describe('location', () => {
 	it('should get valid location events', done => {
