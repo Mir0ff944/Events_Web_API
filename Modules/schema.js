@@ -19,8 +19,8 @@ const Schema = mongoose.Schema
 // exports.User = mongoose.model('User', userSchema)
 
 const favoriteSchema = new Schema({
-	name: String,
 	title: String,
+	genre: String,
 	image: String,
 	id: String
 })

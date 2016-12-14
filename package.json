@@ -4,7 +4,7 @@
   "description": "Events and performers api that uses data from 3rd party api, combines functions and filters data to make user interaction faster and efficient",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/jasmine-node spec --color --verbose --autotest --watch .",
+    "test": "./node_modules/.bin/istanbul cover -x **spec/** -x **index.js** -x **debug.js** ./node_modules/.bin/jasmine-node spec .",
     "coverage": "./node_modules/.bin/istanbul cover -x **spec/** -x **index.js** jasmine-node spec",
     "linter": "node_modules/.bin/eslint ."
   },

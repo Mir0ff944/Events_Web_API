@@ -62,7 +62,7 @@ exports.searchPerformer = performer => new Promise ( (resolve, reject) => {
 				const performers = [
 					performer = {
 						title: json.performers.performer[0].name,
-						music_genre: json.performers.performer[0].short_bio,
+						genre: json.performers.performer[0].short_bio,
 						image: json.performers.performer[0].image.medium.url,
 						id: json.performers.performer[0].id,
 					}
@@ -73,7 +73,7 @@ exports.searchPerformer = performer => new Promise ( (resolve, reject) => {
 				const performers = [
 					performer = {
 						title: json.performers.performer.name,
-						music_genre: json.performers.performer.short_bio,
+						genre: json.performers.performer.short_bio,
 						image: json.performers.performer.image.medium.url,
 						id: json.performers.performer.id,
 					}

@@ -5,7 +5,40 @@ const schema = require('../Modules/schema')
 // const authorise = require('../Modules/authorise')
 
 describe('search function ', () => {
-	beforeEach(done => {
+
+	it('should get valid location events', done => {
+		const location = {params: { l: ['London']}}
+
+		events.searchByLocation(location, (err, data) => {
+			if(err) expect(true).toBe(false)
+			expect(data).not.toBe(undefined)
+		})
+		done()
+	})
+
+	it('should find valid performer', done => {
+		const performer = {params: { p: ['Hardwell']}}
+
+		events.searchPerformer(performer, (err,data) => {
+			if(err) expect(true).toBe(false)
+			expect(data).not.toBe(undefined)
+		})
+		done()
+	})
+
+	it('should find valid performer events', done => {
+		const performer = {params: { p: ['Ariana Grande']}}
+
+		events.searchPerformerEvents(performer, (err, data) => {
+			if(err) expect(true).toBe(false)
+			expect(data).not.toBe(undefined)
+		})
+		done()
+	})
+})
+
+describe('missing parameter ', () => {
+	beforeEach(() => {
 		schema.Favorites.remove({}, err => {
 			if (err) expect(true).toBe(false)
 			new schema.Favorites({performers: {name: ['Hardwell']}}).save((err) => {
@@ -13,41 +46,79 @@ describe('search function ', () => {
 				schema.Favorites.count({}, (err, count) => {
 					if (err) expect(true).toBe(false)
 					expect(count).toBe(1)
-					done()
 				})
 			})
 		})
 	})
-	describe('search', () => {
 
-		it('should get valid location events', () => {
-			const location = {params: { l: ['London']}}
+	it('should get valid location events', () => {
+		const location = {params: { l: ['']}}
 
-			events.searchByLocation(location, (err, data) => {
-				if(err) expect(true).toBe(false)
-				expect(data).not.toBe(undefined)
-			})
+		events.searchByLocation(location, (err, data) => {
+			if(err) expect(true).toBe(false)
+			expect(data).toBe(undefined)
 		})
+	})
 
-		it('should find valid performer', () => {
-			const performer = {params: { p: ['Hardwell']}}
+	it('should find valid performer', () => {
+		const performer = {params: { p: ['']}}
 
-			events.searchPerformer(performer, (err,data) => {
-				if(err) expect(true).toBe(false)
-				expect(data).not.toBe(undefined)
-			})
+		events.searchPerformer(performer, (err,data) => {
+			if(err) expect(true).toBe(false)
+			expect(data).toBe(undefined)
 		})
+	})
 
-		it('should find valid performer events', () => {
-			const performer = {params: { p: ['Ariana Grande']}}
+	it('should find valid performer events', () => {
+		const performer = {params: { p: ['']}}
 
-			events.searchPerformerEvents(performer, (err, data) => {
-				if(err) expect(true).toBe(false)
-				expect(data).not.toBe(undefined)
+		events.searchPerformerEvents(performer, (err, data) => {
+			if(err) expect(true).toBe(false)
+			expect(data).toBe(undefined)
+		})
+	})
+})
+
+describe('wrong parrameter key', () => {
+	beforeEach(() => {
+		schema.Favorites.remove({}, err => {
+			if (err) expect(true).toBe(false)
+			new schema.Favorites({performers: {name: ['Hardwell']}}).save((err) => {
+				if (err) expect(true).toBe(false)
+				schema.Favorites.count({}, (err, count) => {
+					if (err) expect(true).toBe(false)
+					expect(count).toBe(1)
+				})
 			})
 		})
 	})
 
+	it('should get valid location events', () => {
+		const location = {params: { h: ['London']}}
+
+		events.searchByLocation(location, (err, data) => {
+			if(err) expect(true).toBe(false)
+			expect(data).toBe(undefined)
+		})
+	})
+
+	it('should find valid performer', () => {
+		const performer = {params: { h: ['Hardwell']}}
+
+		events.searchPerformer(performer, (err,data) => {
+			if(err) expect(true).toBe(false)
+			expect(data).toBe(undefined)
+		})
+	})
+
+	it('should find valid performer events', () => {
+		const performer = {params: { h: ['Hardwell']}}
+
+		events.searchPerformerEvents(performer, (err, data) => {
+			if(err) expect(true).toBe(false)
+			expect(data).toBe(undefined)
+		})
+	})
 })
 
 
