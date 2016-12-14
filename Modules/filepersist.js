@@ -35,7 +35,7 @@ exports.delFavorites = favorites => new Promise((resolve, reject) => {
 })
 
 exports.updateFavorites = name => new Promise((resolve, reject) => {
-	console.log(name)
+	// console.log(name)
 	schema.Favorites.findOneAndRemove({'title': name},err => {
 		if (err) reject(new Error('database error'))
 		resolve(`${name} is no longer in your favorites list`)
