@@ -42,10 +42,3 @@ exports.updateFavorites = name => new Promise((resolve, reject) => {
 	})
 })
 
-
-// exports.existing = listname => new Promise ((resolve, reject) => {
-// 	schema.favorites.find({name: listname}.remove(), (err) => {
-// 		if (err) reject(new Error('database error'))
-// 		//if (favorites.length) reject(new Error(`${listname} is already in favorites`))
-// 	})
-// })

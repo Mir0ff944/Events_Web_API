@@ -22,7 +22,7 @@ describe('search function ', () => {
 		})
 	})
 	it('should find valid performer events', () => {
-		const performer = {params: { p: ['Ariana Grande']}}
+		const performer = {params: { p: ['Hardwell']}}
 
 		events.searchPerformerEvents(performer, (err, data) => {
 			if(err) expect(true).toBe(false)
@@ -106,15 +106,54 @@ describe('wrong parrameter key', () => {
 		})
 	})
 })
-describe('favorites test', () => {
+describe('valid authorisation data', () => {
 	it('should add a valid performer to favorites', () => {
 		const body = {authorization: { scheme: 'Basic',credentials: 'Basic dGVzdHRlc3Q6dGVzdHRlc3Q=', basic: { username: 'testtest', password: 'testtest' } }, username: 'testtest'}
 		const performer = {body: {name: ['Hardwell']}}
 
 		events.addFavorites(performer, (err, data) => {
+			if(err) expect(true).toBe(false)
+			expect(data).not.tobe(undefined)
 			auth.getHeader(body)
+			schema.Favorites.count({}, (err, count) => {
+				if (err) expect(true).toBe(false) //error should not be thrown
+				expect(count).toBe(1)
+			})
+		})
+	})
+
+	it('should delete the favorites collection',() => {
+		const body = {authorization: { scheme: 'Basic',credentials: 'Basic dGVzdHRlc3Q6dGVzdHRlc3Q=', basic: { username: 'testtest', password: 'testtest' } }, username: 'testtest'}
+
+		events.delFavorites({} ,(err, data) => {
 			if(err) expect(true).toBe(false)
 			expect(data).not.toBe(undefined)
+			auth.getHeader(body)
+
+		})
+		schema.Favorites.count({}, (err, count) => {
+			if (err) expect(true).toBe(false) //error should not be thrown
+			expect(count).toBe(0)
+		})
+	})
+
+	it('should return the favorites list',() => {
+		const body = {authorization: { scheme: 'Basic',credentials: 'Basic dGVzdHRlc3Q6dGVzdHRlc3Q=', basic: { username: 'testtest', password: 'testtest' } }, username: 'testtest'}
+		const performer = {body: {name: ['Hardwell']}}
+
+		events.addFavorites(performer, (err, data) => {
+			if(err) expect(true).toBe(false)
+			expect(data).not.tobe(undefined)
+			auth.getHeader(body)
+			schema.Favorites.count({}, (err, count) => {
+				if (err) expect(true).toBe(false) //error should not be thrown
+				expect(count).toBe(1)
+			})
+			events.showFavorites({}, (err, data) => {
+				if(err) expect(true).toBe(false)
+				expect(data).not.toBe(undefined)
+
+			})
 		})
 	})
 })

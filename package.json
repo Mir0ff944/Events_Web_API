@@ -6,7 +6,8 @@
   "scripts": {
     "test": "node_modules/.bin/jasmine-node spec --color --verbose --autotest",
     "coverage": "./node_modules/.bin/istanbul cover -x **spec/** -x **index.js** jasmine-node spec",
-    "linter": "node_modules/.bin/eslint ."
+    "linter": "node_modules/.bin/eslint .",
+    "apidoc": "node_modules/.bin/apidoc -e node_modules/"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,6 @@
     "performers"
   ],
   "author": "Miroslav Ivanov",
-  "license": "ISC",
   "bugs": {
     "url": "https://gitlab.com/Mir0ff944/WebAPIAssignment/issues"
   },
