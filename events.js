@@ -36,43 +36,47 @@ exports.searchPerformer = (request, callback) => {
 
 exports.addFavorites = (request, callback) => {
 	authorise.getHeader(request)
-	.then( () => extractBodyKey(request, 'name'))
-	.then(name => eventful.searchPerformer(name))
-	  .then(data => {
-		  data = data.performers[0]
-		  return data
-	}).then(favorite => filepersist.addFavorite(favorite))
+	  .then( () => extractBodyKey(request, 'name'))
+	  .then(name => eventful.searchPerformer(name))
+	  .then(data => data.performers[0])
+	  .then(favorite => filepersist.addFavorite(favorite))
 	  .then(data => callback(null, data))
 	  .catch(err => callback(err))
 }
 
 exports.showFavorites = (request, callback) => {
 	authorise.getHeader(request)
-	.then( () => filepersist.getFavorites())
-		.then(console.log('showing favorites'))
+		.then( () => filepersist.getFavorites())
+		// .then(console.log('showing favorites'))
 		.then(data => callback(null, data))
 		.catch(err => callback(err))
 }
 
 exports.delFavorites = (request, callback) => {
-	authorise.getHeader(request)
-	.then( () => filepersist.delFavorites())
-		.then(console.log('deleting favorites'))
+	authorise.getHeader(request).then( () => filepersist.delFavorites())
+		// .then(console.log('deleting favorites'))
+		.then(data => callback(null, data))
+		.catch(err => callback(err))
+}
+
+exports.updateFavorites = (request, callback) => {
+	authorise.getHeader(request).then( () => extractBodyKey(request, 'name'))
+		.then(name => filepersist.updateFavorites(name))
 		.then(data => callback(null, data))
 		.catch(err => callback(err))
 }
 
 const extractParam = (request, param) => new Promise( (resolve, reject) => {
-	console.log(request) //debuging spec tests
-	console.log(param)
+	// console.log(request) //debuging spec tests
+	// console.log(param)
 	if (request.params === undefined || request.params[param] === undefined)
 		reject(new Error(`${param} parameter missing('performer' if searching for performer events!)`))
 	resolve(request.params[param])
 })
 
 const extractBodyKey = (request, key) => new Promise((resolve, reject) => {
-	console.log(request)	//debuging spec tests
-	console.log(key)
+	// console.log(request)	//debuging spec tests
+	// console.log(key)
 	if (request.body === undefined || request.body[key] === undefined)
 		reject(new Error(`missing key ${key} in request body`))
 	resolve(request.body[key])

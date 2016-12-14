@@ -3,7 +3,7 @@
 const schema = require('./schema')
 
 exports.addFavorite = PerformerDetails => new Promise ((resolve, reject) => {
-	if (!'perforers[0].title' in PerformerDetails && !'performers[0].music_genre' in PerformerDetails && !'performers[0].id' in PerformerDetails) {
+	if (!'perforers[0].title' in PerformerDetails && !'performers[0].genre' in PerformerDetails && !'performers[0].image' in PerformerDetails && !'performers[0].id' in PerformerDetails) {
 		reject(new Error('ivalid performer object'))
 	}
 	const favorites = new schema.Favorites(PerformerDetails)
@@ -34,16 +34,11 @@ exports.delFavorites = favorites => new Promise((resolve, reject) => {
 	})
 })
 
-// exports.update = (filter, replacement) => new Promise ((resolve,reject) => {
-// 	schema.Favorites.findOneAndReplace((err, filter , replacement) => {
-// 		if (err) reject(new Error('database error'))
-// 		resolve(`${replacement} Item has been updated`)
-// 	})
-// })
+exports.updateFavorites = name => new Promise((resolve, reject) => {
+	// console.log(name)
+	schema.Favorites.findOneAndRemove({'title': name},err => {
+		if (err) reject(new Error('database error'))
+		resolve(`${name} is no longer in your favorites list`)
+	})
+})
 
-// exports.existing = listname => new Promise ((resolve, reject) => {
-// 	schema.favorites.find({name: listname}.remove(), (err) => {
-// 		if (err) reject(new Error('database error'))
-// 		//if (favorites.length) reject(new Error(`${listname} is already in favorites`))
-// 	})
-// })

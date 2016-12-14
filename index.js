@@ -125,6 +125,18 @@ server.del('/favorites', (req, res) => {
 	})
 })
 
+server.put('/favorites', (req, res) => {
+	events.updateFavorites(req, (err, data) => {
+		res.setHeader('content-type', globals.format.json)
+		res.setHeader('accepts', 'GET, POST, PUT, DELETE')
+		if (err) {
+			res.send(globals.badRequest, {error: err.message})
+		} else {
+			res.send(globals.ok, data)
+		}
+	})
+})
+
 const port = process.env.PORT || defaultPort
 
 server.listen(port, err => {

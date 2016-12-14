@@ -10,17 +10,9 @@ mongoose.connect(`mongodb://${db.user}:${db.password}@ds023388.mlab.com:23388/ev
 mongoose.Promise = global.Promise
 const Schema = mongoose.Schema
 
-// const userSchema = new Schema ({
-// 	name: String,
-// 	username: String,
-// 	password: String
-// })
-
-// exports.User = mongoose.model('User', userSchema)
-
 const favoriteSchema = new Schema({
-	name: String,
 	title: String,
+	genre: String,
 	image: String,
 	id: String
 })
