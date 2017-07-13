@@ -27,13 +27,13 @@
   },
   "homepage": "https://lyx-api.herokuapp.com/",
   "dependencies": {
-    "csprng": "^0.1.1",
-    "jasmine": "^2.5.2",
+    "csprng": "^0.1.2",
+    "jasmine": "^2.6.0",
     "js-schema": "^1.0.1",
-    "mongodb": "^2.2.12",
-    "mongoose": "^4.7.0",
-    "request": "^2.79.0",
-    "restify": "^4.1.1",
+    "mongodb": "^2.2.30",
+    "mongoose": "^4.11.2",
+    "request": "^2.81.0",
+    "restify": "^4.3.1",
     "xmlbuilder": "^8.2.2"
   },
   "devDependencies": {
